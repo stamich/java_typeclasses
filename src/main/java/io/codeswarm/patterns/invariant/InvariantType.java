@@ -30,4 +30,12 @@ public class InvariantType<T,R> implements Invariant<T,R>{
     private Invariant<T,R> empty() {
         return new InvariantType<>((T) Optional.empty(), (R) Optional.empty());
     }
+
+    @Override
+    public String toString() {
+        return "InvariantType{" +
+                "value=" + value +
+                ", reversedValue=" + reversedValue +
+                '}';
+    }
 }
