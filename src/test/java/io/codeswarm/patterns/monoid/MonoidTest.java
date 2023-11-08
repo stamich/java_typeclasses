@@ -21,4 +21,11 @@ public class MonoidTest {
         int result = monoid.combine(3, 4);
         assertEquals(7, result);
     }
+
+    @Test
+    public void MonoidOfTest() {
+        Monoid<Integer> monoid = MonoidType.of(0, Integer::sum);
+        Optional<Integer> result = monoid.empty();
+        assertEquals(0, result.orElseThrow());
+    }
 }

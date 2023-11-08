@@ -22,4 +22,8 @@ public class MonoidType<T> implements Monoid<T> {
     public T combine(T a, T b) {
         return operation.apply(a, b);
     }
+
+    public static <T> Monoid<T> of(T value, BinaryOperator<T> operation) {
+        return new MonoidType<>(value, operation);
+    }
 }
