@@ -31,29 +31,25 @@ public class FoldableType<T,U> implements Foldable<T,U> {
         return new ArrayList<>(list);
     }
 
+//    @Override
+//    public U foldLeft(List<T> list, U initialValue, BiFunction<U, T, U> accumulator) {
+//        U result = initialValue;
+//        for (T element: list) {
+//            result = accumulator.apply(result, element);
+//        }
+//        return result;
+//    }
+
     @Override
     public U foldLeft(List<T> list, U initialValue, BiFunction<U, T, U> accumulator) {
-        U result = initialValue;
-        for (T element: list) {
-            result = accumulator.apply(result, element);
-        }
-        return result;
+        return list.stream()
+                .reduce(initialValue, accumulator, (a, b) -> b);
     }
 
     @Override
     public U foldRight(List<T> list, U initialValue, BiFunction<T, U, U> accumulator) {
-//        if (list.isEmpty()) {
-//            return initialValue;
-//        } else {
-//            T lasElement = list.get(list.size() - 1);
-//            List<T> restOfList = list.subList(0, list.size() - 1);
-//            U result = accumulator.apply((U) lasElement, (T) accumulator);
-//            return foldRight(restOfList, result, accumulator);
-//        }
         return list.isEmpty()
                 ? initialValue
                 : accumulator.apply(head(list), foldRight(tail(list), initialValue, accumulator));
     }
-
-
 }
